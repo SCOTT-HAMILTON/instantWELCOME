@@ -7,9 +7,6 @@ import pathlib
 import os
 from gi.repository import Gtk
 
-# won't show icons otherwise
-settings = Gtk.Settings.get_default()
-settings.props.gtk_button_images = True
 
 class Handler:
     def window_destroy_cb(self, *args):
@@ -47,17 +44,17 @@ class Handler:
     def quitbutton_clicked_cb(self, button):
         Gtk.main_quit()
 
-builder = Gtk.Builder()
+def main():
+    # won't show icons otherwise
+    settings = Gtk.Settings.get_default()
+    settings.props.gtk_button_images = True
+    builder = Gtk.Builder()
 
-if pathlib.Path('./welcome.glade').exists():
-    builder.add_from_file("./welcome.glade")
-else:
-    builder.add_from_file("/usr/share/instantwelcome/welcome.glade")
+    builder.add_from_file("welcome.glade")
 
+    builder.connect_signals(Handler())
 
-builder.connect_signals(Handler())
+    window = builder.get_object('window')
+    window.show_all()
 
-window = builder.get_object('window')
-window.show_all()
-
-Gtk.main()
+    Gtk.main()

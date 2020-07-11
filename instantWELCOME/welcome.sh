@@ -10,7 +10,7 @@ echo "welcome to instantOS"
 if [ -e welcome.py ]; then
     python3 welcome.py &
 else
-    python3 /usr/share/instantwelcome/welcome.py &
+	welcome &
 fi
 
 while :; do
